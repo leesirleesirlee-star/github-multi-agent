@@ -1,0 +1,50 @@
+name: Bug
+description: A defect in the code, a check or the workflow.
+title: "[bug] "
+labels: ["type:fix"]
+body:
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Command, input and the exact commit.
+      placeholder: |
+        commit:
+        command:
+        input:
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: Exit code, output, stack trace, hashes.
+    validations:
+      required: true
+  - type: input
+    id: module
+    attributes:
+      label: Suspected module
+      description: Add the matching `module:<id>` label too.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, language/tool versions, local vs CI.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Log excerpt or artifact link. No secrets or private data.
+    validations:
+      required: false

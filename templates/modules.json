@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "module_label_prefix": "module:",
+  "integration_label": "module:integration",
+  "default_reviewers": ["@lead"],
+  "ignored_prefixes": [
+    "var/",
+    ".venv/",
+    "__pycache__/",
+    ".pytest_cache/",
+    ".ruff_cache/"
+  ],
+  "modules": [
+    {
+      "id": "contract",
+      "title": "Schemas and public interfaces",
+      "owner": "@lead",
+      "paths": ["schemas/", "docs/interfaces/"],
+      "may_depend_on": [],
+      "interfaces": ["<ContractV1>"],
+      "gate": "M0",
+      "notes": "Only the lead edits the contract; every consumer reviews."
+    },
+    {
+      "id": "core",
+      "title": "Core domain logic",
+      "owner": "@alice",
+      "reviewers": ["@bob"],
+      "paths": ["src/core/", "tests/core/"],
+      "may_depend_on": ["contract"],
+      "forbidden_paths": ["src/ui/"],
+      "interfaces": ["<CoreService>"],
+      "gate": "M1",
+      "notes": "No UI imports; deterministic tests."
+    },
+    {
+      "id": "api",
+      "title": "Service API",
+      "owner": "@bob",
+      "reviewers": ["@alice"],
+      "paths": ["src/api/", "tests/api/"],
+      "may_depend_on": ["core", "contract"],
+      "forbidden_paths": ["src/ui/"],
+      "interfaces": ["<ApiV1>"],
+      "gate": "M2"
+    },
+    {
+      "id": "ui",
+      "title": "User interface",
+      "owner": "@carol",
+      "paths": ["src/ui/", "tests/ui/"],
+      "may_depend_on": ["contract"],
+      "forbidden_paths": ["src/core/"],
+      "interfaces": ["<AppView>"],
+      "gate": "M2"
+    },
+    {
+      "id": "infra",
+      "title": "Repository, CI and docs",
+      "owner": "@lead",
+      "paths": [
+        ".github/",
+        "scripts/",
+        "docs/",
+        "README.md",
+        "modules.json",
+        "pyproject.toml",
+        "requirements.txt"
+      ],
+      "may_depend_on": [],
+      "interfaces": [],
+      "gate": "M0",
+      "notes": "Catch-all for docs/ and root files; longer module prefixes win."
+    }
+  ]
+}

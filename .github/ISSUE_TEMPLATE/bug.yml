@@ -1,0 +1,49 @@
+name: Bug
+description: A defect in the skill, a script or a template.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: The command, the input and the observed output.
+      placeholder: |
+        command:
+        expected:
+        actual:
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - SKILL.md / references
+        - scripts
+        - templates
+        - examples
+        - CI / packaging
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: Release tag or commit SHA.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, DSH version if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Log excerpt or output. No secrets or private data.
+    validations:
+      required: false

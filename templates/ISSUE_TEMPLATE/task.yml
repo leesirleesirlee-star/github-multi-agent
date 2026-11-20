@@ -1,0 +1,77 @@
+name: Task
+description: One module, one owner, one deliverable.
+title: "[module] "
+labels: ["type:feat"]
+# Edit the module options below to match modules.json before committing.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Add exactly one `module:<id>` label after creating the issue.
+        If the task touches two modules, split it or ask the lead for
+        `module:integration`.
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What user-visible or checkable outcome does this produce?
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Owner
+      description: GitHub handle of the single writer.
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      options:
+        - contract
+        - core
+        - api
+        - ui
+        - infra
+    validations:
+      required: true
+  - type: input
+    id: gate
+    attributes:
+      label: Milestone / gate
+      description: For example M0, M1, or the milestone name.
+    validations:
+      required: false
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      description: Artifacts, schemas or issues this task consumes.
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Observable checks, not adjectives.
+      placeholder: |
+        - [ ] check 1
+        - [ ] check 2
+        - [ ] evidence committed
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of scope
+      description: What this task deliberately does not do.
+    validations:
+      required: false
+  - type: input
+    id: depends
+    attributes:
+      label: Dependencies
+      description: Blocked by #... / blocks #...
+    validations:
+      required: false

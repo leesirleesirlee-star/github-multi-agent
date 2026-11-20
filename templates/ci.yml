@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          # TODO: replace with the project's install command.
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Test
+        run: |
+          # TODO: replace with the project's test command.
+          python -m pytest -q
+
+  modules:
+    name: modules
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch base branch
+        run: git fetch --no-tags origin ${{ github.base_ref }}
+      - name: Check module scope
+        run: |
+          python scripts/check_modules.py \
+            --base FETCH_HEAD \
+            --labels "${{ join(github.event.pull_request.labels.*.name, ',') }}"
+
+  codeowners:
+    name: codeowners
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check generated CODEOWNERS
+        run: python scripts/generate_codeowners.py --check

@@ -1,0 +1,4 @@
+# Development dependencies for validating and linting this package.
+# The skill's runtime scripts use the Python standard library only.
+pyyaml>=6,<7
+ruff>=0.6,<1

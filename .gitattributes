@@ -1,0 +1,7 @@
+# Keep the package portable: LF everywhere, binary files untouched.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary

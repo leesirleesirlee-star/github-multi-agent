@@ -1,0 +1,39 @@
+name: Decision
+description: A scope, contract, module-boundary or gate decision that needs an ADR.
+title: "[decision] "
+labels: ["type:decision"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What forces a decision now?
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: At least two options with tradeoffs.
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Proposed decision
+    validations:
+      required: true
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consequences
+      description: Positive, negative and follow-up work.
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected artifacts and owners
+      description: Contract, schema, module paths, CODEOWNERS, labels.
+    validations:
+      required: true

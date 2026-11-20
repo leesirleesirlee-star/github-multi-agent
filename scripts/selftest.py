@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import contextlib
 import io
-import sys
 from pathlib import Path
 
 try:  # run as a script
